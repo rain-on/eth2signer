@@ -13,7 +13,6 @@
 package tech.pegasys.web3signer.slashingprotection;
 
 import static org.jdbi.v3.core.transaction.TransactionIsolationLevel.READ_COMMITTED;
-import static org.jdbi.v3.core.transaction.TransactionIsolationLevel.SERIALIZABLE;
 
 import tech.pegasys.web3signer.slashingprotection.dao.SignedAttestation;
 import tech.pegasys.web3signer.slashingprotection.dao.SignedAttestationsDao;
@@ -188,7 +187,7 @@ public class DbSlashingProtection implements SlashingProtection {
   @Override
   public void registerValidators(final List<Bytes> validators) {
     jdbi.useTransaction(
-        SERIALIZABLE,
+        READ_COMMITTED,
         h -> {
           final List<Validator> existingRegisteredValidators =
               validatorsDao.retrieveValidators(h, validators);

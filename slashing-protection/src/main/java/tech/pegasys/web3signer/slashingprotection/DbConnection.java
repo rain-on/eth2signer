@@ -23,7 +23,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.argument.Arguments;
 import org.jdbi.v3.core.mapper.ColumnMappers;
-import org.jdbi.v3.core.transaction.SerializableTransactionRunner;
 
 public class DbConnection {
 
@@ -42,7 +41,6 @@ public class DbConnection {
     jdbi.getConfig(ColumnMappers.class)
         .register(new BytesColumnMapper())
         .register(new UInt64ColumnMapper());
-    jdbi.setTransactionHandler(new SerializableTransactionRunner());
   }
 
   private static DataSource createDataSource(
